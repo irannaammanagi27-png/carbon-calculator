@@ -1,5 +1,5 @@
 ```dockerfile
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM eclipse-temurin:21-jdk-alpine AS build
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ COPY carbon-calculator/ .
 
 RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
