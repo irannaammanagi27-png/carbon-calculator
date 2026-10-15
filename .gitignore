@@ -1,5 +1,42 @@
+```gitignore
+# Node.js frontend
 node_modules/
-target/
 .env
 *.log
+
+# Java / Maven
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# IDE files
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+.idea/
+*.iws
+*.iml
+*.ipr
+.apt_generated/
+.vscode/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Build files
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Operating system
 .DS_Store
+Thumbs.db
+```
