@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+
 export default function App() {
   const [summary, setSummary] = useState({ totalCarbon: 0, scope2Total: 0, scope3Total: 0, totalEntries: 0 });
   const [batches, setBatches] = useState([]);
@@ -15,18 +17,15 @@ export default function App() {
   const [supplierName, setSupplierName] = useState('');
   const [batchQuantity, setBatchQuantity] = useState('');
 
-  const authHeader = 'Basic ' + btoa('admin:Admin123');
-
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const summaryRes = await fetch('http://localhost:8080/api/reports/summary', {
+      const summaryRes = await fetch(`${API_BASE_URL}/api/reports/summary`, {
         method: 'GET',
         headers: {
-          'Authorization': authHeader,
           'Content-Type': 'application/json'
         }
       });
@@ -34,10 +33,9 @@ export default function App() {
         setSummary(await summaryRes.json());
       }
 
-      const batchesRes = await fetch('http://localhost:8080/api/batches', {
+      const batchesRes = await fetch(`${API_BASE_URL}/api/batches`, {
         method: 'GET',
         headers: {
-          'Authorization': authHeader,
           'Content-Type': 'application/json'
         }
       });
@@ -45,10 +43,9 @@ export default function App() {
         setBatches(await batchesRes.json());
       }
 
-      const activitiesRes = await fetch('http://localhost:8080/api/activities', {
+      const activitiesRes = await fetch(`${API_BASE_URL}/api/activities`, {
         method: 'GET',
         headers: {
-          'Authorization': authHeader,
           'Content-Type': 'application/json'
         }
       });
@@ -63,11 +60,10 @@ export default function App() {
   const handleAddActivity = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8080/api/activities', {
+      const res = await fetch(`${API_BASE_URL}/api/activities`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': authHeader
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ activityType, quantity: parseFloat(quantity), unit })
       });
@@ -83,11 +79,10 @@ export default function App() {
   const handleAddBatch = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8080/api/batches', {
+      const res = await fetch(`${API_BASE_URL}/api/batches`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': authHeader
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ batchNumber, supplierName, quantity: parseFloat(batchQuantity) })
       });

@@ -1,16 +1,15 @@
-# React + Vite
+# Carbon Calculator Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React and Vite frontend for the Carbon Calculator application.
 
-Currently, two official plugins are available:
+## Render deployment
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The repository-root `render.yaml` defines the static frontend service. It builds this directory with `npm ci && npm run build` and publishes `dist`.
 
-## React Compiler
+The frontend uses `VITE_API_BASE_URL` for API requests. The Render blueprint points it at the backend service. The backend's `FRONTEND_URL` environment variable must be set to this site's public Render URL to allow browser requests.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The Spring Boot backend also needs `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` set in its Render Environment settings to connect to a publicly reachable MySQL database. Do not use `localhost` for a database hosted outside the backend container.
 
-## Expanding the Oxlint configuration
+## Local development
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Run `npm ci` and `npm run dev`. The frontend defaults to the backend at `http://localhost:8080`; override this with `VITE_API_BASE_URL` when needed.
